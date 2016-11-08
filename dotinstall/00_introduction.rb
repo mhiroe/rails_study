@@ -14,3 +14,22 @@
 # ドメイン dev.dotinstall.com:3000
 # → hostに記述しておくこと
 
+
+# 01 DRY CoC MVCアーキテクチャ とは
+
+# 設計哲学
+
+
+# DRY DRY　Don'T repeat yourself
+#  - 同じことを２回書くのはやめる
+#  - 共通の処理は部品化する
+#  - １回書いた処理は他のところで書かない
+
+# CoC Convention over configuration
+# - 規約が多い（フォルダ構成、ファイル名などの縛りがある)
+# - 規約に寄って、自動でファイルと動作を紐付けてくれる
+
+# MVC　model-view-controller
+# model:データ
+# view: 画面
+# Controrller : modelとviewを取り持つもの

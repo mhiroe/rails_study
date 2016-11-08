@@ -1,0 +1,9 @@
+<h1>Projects</h1>
+
+<ul>
+  <!--ruby の制御構造を埋める-->
+  <% @projects.each do |project| %>
+      <!--%= 次に買いた式を評価して、内容を表示(プロジェクトのタイトルを表示)-->
+    <li><%= project.title %></li>
+  <% end %>
+</ul>

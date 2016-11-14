@@ -1,0 +1,61 @@
+#
+#  10 共通のテンプレートを編集しよう
+#
+
+
+# app/views/projects/index.html.erb
+# - viewの記述は少ないが、htmlの中身がたくさん記述されている
+#   - app/views/layout/application.html.erb
+#   - 共通のhtml "<%= yield %>" の中にviewが呼び出される
+
+# 全ページ共通のロゴを設定
+
+# app/views/layout/application.html.erb
+# rails-イメージタグヘルパー:imgタグを簡単に書ける仕組みを利用
+# <%= image_tag "logo.jpg" %>
+# app/assets/images/logo.jpg を置く
+
+# 共通のリンクを置く
+# railsリンクヘルパー：
+
+<!--共通のリンクを貼る:リンクヘルパー-->
+<%= link_to "Home", "/" %>
+<!--projectsの一覧に飛ぶ-->
+<!-- コントローラ名_path とすると コントローラ名URI一覧に飛ぶことができる-->
+<!--rake routesで確認-->
+<%= link_to "Home", projects_path %>
+
+
+# - 他にもjavascriptやCSSも置ける
+# CSS
+# app/assets/stylesheets/apprications.css
+
+#
+# projects詳細を表示する
+#
+
+#
+# ページ中のp1にリンクを張り、詳細に飛ぶ
+#
+
+# app/view/projects/index.html.erb
+# <li><%= link_to project.title, project_path(project.id) %></li>
+# (project.id)は rake routeで確認された /projects/:id のこと
+# - projects/1 projects/2 のようになる
+
+# 1. p1,p2に対応したControllerを作る
+# - rake routeで確認された "show"コントローラを作る
+
+# app/controllers/projects_contoroller.rb
+def show
+@project = Project.find(params[:id])
+# URIで渡ってきた数字(1,2)は"params"で受取ることができる
+# :id(シンボル)はrake routeで確認された
+end
+
+# 2. showに対応したviewを作る
+# - app/view/projects/show.html.erb (index~をcopy)
+# <h1><%= @project.title %></h1>
+# ちなみに共通テンプレート我効いてるのででhomeで戻れる
+
+

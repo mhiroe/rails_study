@@ -1,0 +1,26 @@
+#
+# 18.データ削除する
+#
+
+1. ルーティング確認
+rakes route
+
+DELETE projects#destroy
+
+2.削除リンクを作成
+# app/views/projects/index.html.erb
+
+      <!--"method: :delete" とするとdestroyアクションに結びつけてくれる-->
+      <!--data: 確認(confirm)のポップアップを出す-->
+      <%= link_to "[Delete]", project_path(project.id), method: :delete, data: {confirm: "are you sure?"} %>
+
+
+3.削除アクションを作成
+# app/controler/projects_controller.rb
+
+  def destroy
+    @project = Project.find(params[:id])
+    # 削除メソッド
+    @project.destroy
+    redirect_to projects_path
+  end

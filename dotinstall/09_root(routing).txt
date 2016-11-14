@@ -1,0 +1,11 @@
+#
+# 09 rootの設定をしよう
+#
+
+# routing
+# - URIに対してどのアクションを起こすか紐付けるもの
+
+# パラメータをつけなくても、URL直で"project"に飛ぶようにしたい
+# config/routes.rb
+
+ root 'projects#index'

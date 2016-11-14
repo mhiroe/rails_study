@@ -1,0 +1,68 @@
+#
+# 20.Tasksの設定をしていこう
+#
+
+新たな"Task"という機能を作る
+一旦サーバーを停止し、雛形ファイルを作る
+
+・新たなmodelを作る > rails g model
+- Task というmodelを作る > model Task
+- titleというstrings形を用意(stringは省略) > title
+- 終わったかどうかを真偽型(boolean)で管理 > done:boolean
+- projectと紐付ける > project:references
+
+rails g model Task title done:boolean project:references
+
+ -> model と dbのmigrationファイルが出来る
+
+create table t.booleanのデフォルト値をfalseにしておく
+ =登録時はタスクはdoneではないため
+# taskapp/db/migrate/日付.create_tasks.rb
+
+t.boolean :done, default: false
+
+rake db:migrate
+
+　-> テーブルが作られる
+
+・新たなcontrollerを作る
+
+rails g controller Tasks
+
+ -> controllerが作られる
+
+#
+# 21 Associationの設定
+#
+
+
+・関連付けをする
+
+# 自動生成される
+# models/task.rb
+
+belongs_to :project # projectに属する
+
+# 自動で更新されないので、taskに結びつける
+# models/project.rb
+
+  # 関連モデルの紐付け=association
+  # - 複数のtaskが紐付いている 1:多の関係である
+  has_many :tasks
+
+・routingを設定する
+# config/routes.db
+
+  # projectに関連した形でルーティングを付ける
+    resources :projects do
+      # tasksのルーティングを追加、createとdestoryのみ作る,showはprojectのほうでおｋ
+      resources :tasks, only: [:create, :destroy]
+    end
+
+ ・確認
+ rake routes
+
+
+
+
+

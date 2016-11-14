@@ -1,0 +1,27 @@
+<h1>Edit</h1>
+
+<%= form_for @project do |f| %>
+    <!--form_for=フォームの雛形 -->
+    <p>
+      <!--タイトルを入力するためのテキストフィールド-->
+      <!--タイトルのためのラベルを作る-->
+      <%= f.label :title %><br>
+      <!--入力フィールドを作る-->
+      <%= f.text_field :title %>
+
+      <!--エラーとなった場合projectt.errorに何かが入る-->
+      <% if @project.errors.any? %>
+          <!--project.errorsに何が入っているか調べる-->
+          <!-- [キー=>配列] [切り分け] @messages-[title=>["can't be blank"]が入っている -->
+          <!--<%= @project.errors.inspect %>-->
+          <!--message配列のtitleのキーの0番目の要素を取り出す-->
+          <%= @project.errors.messages[:title][0] %>
+      <% end %>
+
+    </p>
+
+    <p>
+      <!--submitボタンを作る-->
+      <%= f.submit %>
+    </p>
+<% end %>

@@ -1,0 +1,32 @@
+#
+# 22.tasks新規フォームを作る
+#
+
+<ul>
+  <!--projectとtaskが関連しているので project.taskのように書ける-->
+  <!--taskに対してループを回す-->
+  <% @project.tasks.each do |task| %>
+  <li><%= task.title %></li>
+  <% end %>
+  <li>
+    <!--フォームを作る 受け皿[プロジェクトと、プロジェクトに関連してタスクを作る]-->
+    <%= form_for [@project, @project.tasks.build] do |f| %>
+        <!--テキストフィールドと、submitボタンを作る-->
+        <%= f.text_field :title %>
+        <%= f.submit %>
+    <% end %>
+  </li>
+
+</ul>
+
+#
+# 23.Taskを保存する
+#
+
+@routes
+
+# URI:アクション
+project_tasks projects/:project_id/tasks task/create
+
+# app/controllers/task_controller.rb
+

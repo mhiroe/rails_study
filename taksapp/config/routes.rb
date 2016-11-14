@@ -1,4 +1,5 @@
 Taksapp::Application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -13,7 +14,19 @@ Taksapp::Application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-    resources :projects
+
+  # projectsコントローラーに関する一通りのアクションと紐付ける
+  #   resources :projects
+
+  # projectに関連した形でルーティングを付ける
+    resources :projects do
+      # tasksのルーティングを追加、createとdestoryのみ作る
+      resources :tasks, only: [:create, :destroy]
+    end
+
+   # パラメータなしで開くコントローラとアクションを指定する
+   root 'projects#index'
+
 
   # Example resource route with options:
   #   resources :products do

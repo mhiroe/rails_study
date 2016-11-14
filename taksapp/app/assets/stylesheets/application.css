@@ -11,3 +11,6 @@
  *= require_self
  *= require_tree .
  */
+
+/*背景をグレーにする*/
+body {background: #eee; }

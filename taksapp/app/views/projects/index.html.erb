@@ -4,6 +4,21 @@
   <!--ruby の制御構造を埋める-->
   <% @projects.each do |project| %>
       <!--%= 次に買いた式を評価して、内容を表示(プロジェクトのタイトルを表示)-->
-    <li><%= project.title %></li>
+      <!--project_pathは勝手に出来ている-->
+    <!--<li><%= project.title %></li>-->
+    <li>
+      <%= link_to project.title, project_path(project.id) %>
+      <!--EDITリンクを作成-->
+      <%= link_to "[Edit]", edit_project_path(project.id) %>
+      <!--"method: :delete" とするとdestroyアクションに結びつけてくれる-->
+      <!--data: 確認(confirm)のポップアップを出す-->
+      <%= link_to "[Delete]", project_path(project.id), method: :delete, data: {confirm: "are you sure?"} %>
+    </li>
   <% end %>
 </ul>
+
+<p>
+  <!-- Add Newリンクを routingのnew_projectに紐付ける-->
+  <%= link_to "Add New", new_project_path %>
+</p>
+

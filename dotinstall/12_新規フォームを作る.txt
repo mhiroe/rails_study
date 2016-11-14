@@ -1,0 +1,73 @@
+# 新規フォームを作る
+
+# プロジェクトを追加する
+# 概要
+# routing projects/newにフォームを設置して、中身をpostで受取る
+
+# views/index.htm.erb
+<!-- Add Newリンクを routingのnew_projectに紐付ける-->
+<p>
+  <%= link_to "Add New", new_project_path %>
+</p>
+
+## Controllerを作る
+# controller/projects_controller.rb
+--
+  def new
+    @project = Project.new
+  end
+--
+
+## Viewを作る
+# view/new.html.erb
+
+--
+<h1>Add New</h1>
+
+<!--フォームの雛形 form_for -->
+<%= form_for @project do |f| %>
+
+<p>
+  <!--タイトルを入力するためのテキストフィールドを作る-->
+  <!--タイトルのためのラベルを作る-->
+  <%= f.label :title %><br>
+  <!--入力フィールドを作る-->
+  <%= f.text_field :title %>
+</p>
+
+<p>
+<!--submitボタンを作る-->
+<%= f.submit %>
+</p>
+
+<% end %>
+--
+
+#
+# 13. データを保存する
+#
+
+# projects#createアクションでデータを保存する
+# rake routes - POST / projects(.:format) projects#create
+# - POSTしてCREATEする
+
+# app/controllers/projects_controller.rb
+
+  def create
+    # フォームから渡されたものを入れる
+    # - project_paramsメソッドで得たデータを引数とする
+    @project = Project.new(project_params)
+    # 保存
+    @project.save
+    # リダイレクト(遷移)する　プロジェクト一覧へ
+    redirect_to projects_path
+  end
+  # フォームから渡ってくるものを別のメソッドの中でフィルタリングしてもってくる
+  private
+    def project_params
+      # projectで渡ってきたものうち、タイトルだけを引っ張る
+      params[:project].permit(:title)
+    end
+
+
+

@@ -1,0 +1,30 @@
+#
+# 19.berfore_actionを使ってみよう
+#
+
+# berfore action　=処理の前に実行させる
+# - don't repeat yourself 〜極力繰り返さない
+# - controllerでまとめて処理するための仕組みを使って、記述を省略する
+
+# app/controllers/@projects_controller.rb
+
+  # berfore_action アクションの実行前に必ず実行される
+  # set_project という名前の関数とする
+  # - privateメソッドの中で作る
+  # only:とすると連動するアクションを限定できる
+
+1. before actionの宣言 (Classの最初の行)
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
+
+2. privateメソッドの設定
+
+    def set_project
+      @project = Project.find(params[:id])
+    end
+
+3. アクションから共通処理を削除
+
+
+# 注意（なぜ？)
+既にあるインスタンスに対して処理実行するとエラー化する
+新たにインスタンスを作ってアクション実行すると更新される

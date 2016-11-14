@@ -1,0 +1,84 @@
+#
+# 16 編集フォームを作る
+#
+
+1. rake routes 確認
+    編集画面 edit_project projects#action
+    更新 pust projects#update
+
+2.編集リンク作成 @view
+    # view/projects/index.html.erb
+
+      <!--EDITリンクを作成-->
+      <%= link_to "[Edit", edit_project_path(project.id) %>
+
+
+3.アクションを作成
+    # app/controllers/projects_controller.rb
+
+      def edit
+        @project = Project.find(params[:id])
+      end
+
+4.フォームを作る (new.html.erbとほぼ同じ)
+    # app/views/projects/edit.htm.erb
+     ⇒6.newとほぼ同じなので後ほど共通化する
+
+    nwe.html.erbをコピーして、タイトルを"Edit"にする
+
+# 17. 保存する
+
+5. updateアクションを作る
+    # projects_controller.rb
+
+  def update
+    # 該当idのプロジェクトを開く
+    @project = Project.find(params[:id])
+    # updateを使用する
+    if @project.update(project_params)
+      # 上手く言った場合は一覧にリダイレクト
+      redurect_to projects_path
+    else
+      # 編集画面に戻って、エラー表示
+      render 'edit'
+    end
+
+6. newとeditでフォームが同じなので共通化する
+    # "パーシャルを作る" _から始まる名前
+    # app/views/projects/_form.html.erb
+    　もともとnew,editに入っていた内容を記述
+
+# タイトルはそのまま
+<%= render 'form' %>
+
+
+    # new.html.erb, edit.html.erb
+    　formを呼び出すよう記述
+
+<%= form_for @project do |f| %>
+    <p>
+      <%= f.label :title %><br>
+      <%= f.text_field :title %>
+
+      <% if @project.errors.any? %>
+          <%= @project.errors.messages[:title][0] %>
+      <% end %>
+
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
